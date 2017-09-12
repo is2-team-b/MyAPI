@@ -23,7 +23,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['post'])
     def create_user(self, request, pk=None):
         try:
-            user = User.objects.get(name=request.name)
+            user = User.objects.get(name=request.data.name)
             return JSONResponse(user)
         except User.DoesNotExist:
             data = JSONParser().parse(request)
