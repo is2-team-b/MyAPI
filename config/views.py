@@ -18,17 +18,21 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return User.objects.all()
 
-    @detail_route(methods=['post'])
-    def create_user(self, request, pk=None):
+    def create(self, request, pk=None):
         serializer = UserSerializer(data=request.data)
-        try:
-            User.objects.get(name=serializer.data.get('name', None))
-            return Response(serializer.data)
-        except User.DoesNotExist:
-            if(serializer.is_valid()):
+        if (serializer.is_valid()):
+            try:
+                user = User.objects.get(name=request.data['name'])
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            except User.DoesNotExist:
                 serializer.save()
                 return Response(serializer.data, status=201)
-            else:
-                return Response(serializer.data, status=400)
+        else:
+            return Response(serializer.data, status=400)
+
+
+
+
 
 
