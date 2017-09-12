@@ -22,8 +22,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def create_user(self, request, pk=None):
         serializer = UserSerializer(data=request.data)
         try:
-            user = User.objects.get(name=serializer.__getitem__('name').value)
-            return Response(user)
+            User.objects.get(name=serializer.data.get('name', None))
+            return Response(serializer.data)
         except User.DoesNotExist:
             if(serializer.is_valid()):
                 serializer.save()
