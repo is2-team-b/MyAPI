@@ -25,14 +25,14 @@ class UserViewSet(viewsets.ModelViewSet):
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
         try:
-            user = User.objects.get(name=serializer.name)
+            user = User.objects.get(name=serializer.data.name)
             return JSONResponse(user)
         except User.DoesNotExist:
             if(serializer.is_valid()):
                 serializer.save()
-                return JSONResponse(serializer, status=201)
+                return JSONResponse(serializer.data, status=201)
             else:
-                return JSONResponse(serializer, status=400)
+                return JSONResponse(serializer.data, status=400)
 
 class JSONResponse(Response):
     """
