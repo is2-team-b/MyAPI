@@ -22,7 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def create_user(self, request, pk=None):
         serializer = UserSerializer(data=request.data)
         try:
-            user = User.objects.get(name=serializer.name)
+            user = User.objects.get(name=serializer.data.get('name'))
             return Response(user)
         except User.DoesNotExist:
             if(serializer.is_valid()):
