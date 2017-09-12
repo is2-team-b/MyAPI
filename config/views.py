@@ -14,7 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     Contains information about inputs/outputs of a single program
     that may be used in Universe workflows.
     '''
-    lookup_field = 'id'
+    lookup_field = 'name'
     serializer_class = UserSerializer
 
     def get_queryset(self):
