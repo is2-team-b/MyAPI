@@ -14,16 +14,16 @@ class UserViewSet(viewsets.ModelViewSet):
     Contains information about inputs/outputs of a single program
     that may be used in Universe workflows.
     '''
-    lookup_field = 'name'
+    lookup_field = 'id'
     serializer_class = UserSerializer
 
     def get_queryset(self):
         return User.objects.all()
 
     @detail_route(methods=['post'])
-    def create_user(self, request, pk=None):
+    def create_user(self, request, name=None):
         try:
-            user = User.objects.get(pk=pk)
+            user = User.objects.get(name=name)
             return JSONResponse(user)
         except User.DoesNotExist:
             data = JSONParser().parse(request)
