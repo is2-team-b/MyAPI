@@ -22,11 +22,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['post'])
     def create_user(self, request, pk=None):
+        data = JSONParser().parse(request)
         try:
-            user = User.objects.get(name=request.data.name)
+            user = User.objects.get(name=data.name)
             return JSONResponse(user)
         except User.DoesNotExist:
-            data = JSONParser().parse(request)
             serializer = UserSerializer(data=data)
             if(serializer.is_valid()):
                 serializer.save()
