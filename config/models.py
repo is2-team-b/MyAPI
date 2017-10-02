@@ -4,12 +4,21 @@ from mongoengine import Document, EmbeddedDocument, fields
 # Create your models here.
 
 class User(Document):
+    id = fields.ObjectIdField
     name = fields.StringField(required=True)
     wins = fields.IntField
     losses = fields.IntField
+    matches = fields.ListField
 
 class Match(Document):
-    result: fields.StringField
-    map: fields.StringField
-    myCharacter: fields.StringField
-    difficulty: fields.StringField
+    id = fields.ObjectIdField
+    userName = fields.StringField(required=True)
+    userId = fields.ObjectIdField(required=True)
+    result = fields.StringField
+    scenario = fields.StringField(required=True)
+    characterName = fields.StringField(required=True)
+    difficulty = fields.StringField(required=True)
+
+class Login(models.Model):
+    name = fields.StringField(required=True)
+    characterName = fields.StringField(required=True)

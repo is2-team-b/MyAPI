@@ -16,13 +16,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework_mongoengine import routers
-from config.views import UserViewSet
+from config.views import *
 
 # this is DRF router for REST API viewsets
 router = routers.DefaultRouter()
 
 # register REST API endpoints with DRF router
 router.register(r'user', UserViewSet, r"user")
+router.register(r'match', MatchViewSet, r"match")
+router.register(r'login', LoginViewSet, r"login")
 
 urlpatterns = [
     # default django admin interface
