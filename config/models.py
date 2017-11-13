@@ -36,3 +36,5 @@ class Stage(Document):
 class Login(models.Model):
     name = fields.StringField(required=True)
     characterName = fields.StringField(required=True)
+    userId = fields.ObjectIdField
+    match = fields.DictField
