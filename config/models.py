@@ -9,7 +9,7 @@ class User(Document):
     name = fields.StringField(required=True)
     wins = fields.IntField
     losses = fields.IntField
-    matches = fields.ListField
+    matchesId = fields.ListField
 
 
 class Match(Document):
