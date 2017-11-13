@@ -8,10 +8,18 @@ class UserSerializer(DocumentSerializer):
         model = User
         fields = '__all__'
 
+
 class MatchSerializer(DocumentSerializer):
     class Meta:
         model = Match
         fields = '__all__'
+
+
+class StageSerializer(DocumentSerializer):
+    class Meta:
+        model = Stage
+        fields = '__all__'
+
 
 class LoginSerializer(ModelSerializer):
     class Meta:
