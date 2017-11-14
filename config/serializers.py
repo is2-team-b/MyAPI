@@ -21,7 +21,7 @@ class StageSerializer(DocumentSerializer):
         fields = '__all__'
 
 
-class LoginSerializer(ModelSerializer):
+class LoginSerializer(DocumentSerializer):
     class Meta:
         model = Login
         fields = '__all__'

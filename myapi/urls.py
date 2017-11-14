@@ -24,6 +24,7 @@ router = routers.DefaultRouter()
 # register REST API endpoints with DRF router
 router.register(r'user', UserViewSet, r"user")
 router.register(r'match', MatchViewSet, r"match")
+router.register(r'stage', StageViewSet, r"stage")
 router.register(r'login', LoginViewSet, r"login")
 
 urlpatterns = [

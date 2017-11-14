@@ -34,17 +34,16 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.data, status=400)
 
-    def update(self, request, *args, **kwargs):
+    def partial_update(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             try:
                 user = User.objects.get(name=request.data['name'])
-                user.wins += request.data['win']
-                user.losses += request.data['loss']
-                user.matchesId = user.matchesId if user.matchesId is not None else []
+                user.wins += int(request.data['win'])
+                user.losses += int(request.data['loss'])
                 user.matchesId.append(request.data['matchId'])
+                user.save()
                 serializer = UserSerializer(user)
-                serializer.save()
                 return Response(serializer.data)
             except User.DoesNotExist:
                 return Response(serializer.data, status=201)
@@ -57,7 +56,7 @@ class MatchViewSet(viewsets.ModelViewSet):
     Contains information about inputs/outputs of a single program
     that may be used in Universe workflows.
     '''
-    lookup_field = '_id'
+    lookup_field = 'id'
     serializer_class = MatchSerializer
 
     def get_queryset(self):
@@ -79,22 +78,21 @@ class MatchViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.data, status=400)
 
-    def update(self, request, *args, **kwargs):
+    def partial_update(self, request, *args, **kwargs):
         serializer = MatchSerializer(data=request.data)
-        if serializer.is_valid():
-            try:
-                if 'id' in request.data:
-                    match = Match.objects.get(id=request.data['id'])
-                    match.result = request.data['result']
-                    match.status = request.data['status']
-                    serializer = MatchSerializer(match)
-                    serializer.save()
-                    return Response(serializer.data)
-                else:
-                    raise Match.DoesNotExist
-            except Match.DoesNotExist:
-                return Response(serializer.data, status=201)
-        else:
+        try:
+            if 'id' in request.data:
+                match = Match.objects.get(id=request.data['id'])
+                match.result = request.data['result']
+                match.status = request.data['status']
+                match.save()
+                serializer = MatchSerializer(match)
+                return Response(serializer.data)
+            else:
+                raise Match.DoesNotExist
+        except Match.DoesNotExist:
+            return Response(serializer.data, status=201)
+        except Exception:
             return Response(serializer.data, status=400)
 
 
@@ -103,7 +101,7 @@ class StageViewSet(viewsets.ModelViewSet):
     Contains information about inputs/outputs of a single program
     that may be used in Universe workflows.
     '''
-    lookup_field = '_id'
+    lookup_field = 'id'
     serializer_class = MatchSerializer
 
     def get_queryset(self):
@@ -125,22 +123,21 @@ class StageViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.data, status=400)
 
-    def update(self, request, *args, **kwargs):
+    def partial_update(self, request, *args, **kwargs):
         serializer = StageSerializer(data=request.data)
-        if serializer.is_valid():
-            try:
-                if 'id' in request.data:
-                    stage = Stage.objects.get(id=request.data['id'])
-                    stage.result = request.data['result']
-                    stage.status = request.data['status']
-                    serializer = StageSerializer(stage)
-                    serializer.save()
-                    return Response(serializer.data)
-                else:
-                    raise Stage.DoesNotExist
-            except Stage.DoesNotExist:
-                return Response(serializer.data, status=201)
-        else:
+        try:
+            if 'id' in request.data:
+                stage = Stage.objects.get(id=request.data['id'])
+                stage.result = request.data['result']
+                stage.status = request.data['status']
+                stage.save()
+                serializer = StageSerializer(stage)
+                return Response(serializer.data)
+            else:
+                raise Stage.DoesNotExist
+        except Stage.DoesNotExist:
+            return Response(serializer.data, status=201)
+        except Exception:
             return Response(serializer.data, status=400)
 
 
@@ -150,7 +147,11 @@ class LoginViewSet(viewsets.ModelViewSet):
     that may be used in Universe workflows.
     '''
 
+    lookup_field = 'id'
     serializer_class = LoginSerializer
+
+    def get_queryset(self):
+        return Login.objects.all()
 
     def create(self, request, pk=None):
         serializer = LoginSerializer(data=request.data)
@@ -167,25 +168,29 @@ class LoginViewSet(viewsets.ModelViewSet):
 
     def post_response(self, user_response, request, serializer, base_url):
         stage_responses = []
-        for scenario, difficulty in self.get_scenarios_difficulties():
+        scenarios_difficulties = self.get_scenarios_difficulties()
+        for scenario, difficulty in zip(scenarios_difficulties[0], scenarios_difficulties[1]):
             payload = self.get_stage_payload(user_response, scenario, request, difficulty)
             stage_response = requests.post(base_url + 'api/stage/', json=payload)
-            if stage_response.status_code == 201:
+            if stage_response.status_code is not 201:
                 return Response(serializer.data, status=400)
             stage_responses.append(stage_response)
         payload = self.get_match_payload(user_response, stage_responses, request)
         match_response = requests.post(base_url + 'api/match/', json=payload)
         if match_response.status_code == 201:
-            return Response(self.get_login_payload(map(lambda x: x.json(), stage_responses), match_response.json()))
+            serializer.save()
+            return Response(self.get_login_payload(list(map(lambda x: x.json(), stage_responses)),
+                                                   match_response.json(), serializer.data['id']))
         else:
             return Response(serializer.data, status=400)
 
     def get_scenarios_difficulties(self):
-        scenarios = random.shuffle(['ocean_wall.png', 'river.png'])
+        scenarios = ['ocean_wall.png', 'river.png']
+        random.shuffle(scenarios)
         difficulty1 = random.randint(30, 59)
         difficulty2 = random.randint(difficulty1 + 10, 80)
         difficulties = [difficulty1, difficulty2]
-        return scenarios, difficulties
+        return [scenarios, difficulties]
 
     def get_stage_payload(self, user_response, scenario, request, difficulty):
         return {'userName': user_response.json()['name'],
@@ -198,13 +203,16 @@ class LoginViewSet(viewsets.ModelViewSet):
     def get_match_payload(self, user_response, stage_responses, request):
         return {'userName': user_response.json()['name'],
                            'userId': user_response.json()['id'],
-                           'stagesId': map(lambda x: x.json()['id'], stage_responses),
+                           'stagesId': list(map(lambda x: x.json()['id'], stage_responses)),
                            'characterName': request.data['characterName'],
                            'status': 'playing'}
 
-    def get_login_payload(self, stages_payload, match_payload):
-        match_payload.pop('stageId', None)
+    def get_login_payload(self, stages_payload, match_payload, login_id):
+        match_payload['matchId'] = match_payload['id']
+        del match_payload['id']
+        del match_payload['stagesId']
         match_payload['stages'] = stages_payload
+        match_payload['loginId'] = login_id
         return match_payload
 
     def update(self, request, *args, **kwargs):
@@ -212,40 +220,40 @@ class LoginViewSet(viewsets.ModelViewSet):
         base_url = wsgiref.util.application_uri(self.request.environ)
         if serializer.is_valid():
             payload = self.get_user_upt_payload(request)
-            user_response = requests.put(base_url + 'api/user/', json=payload)
+            user_response = requests.patch(base_url + 'api/user/' + request.data['userName'] + '/', json=payload)
             if user_response.ok:
-                return self.put_response(request)
+                return Response(self.patch_response(request, serializer, base_url))
             else:
                 return Response(serializer.data, status=400)
         else:
             return Response(serializer.data, status=400)
 
-    def put_response(self, request, serializer, base_url):
+    def patch_response(self, request, serializer, base_url):
         payload = self.get_match_upt_payload(request)
-        match_response = requests.put(base_url + 'api/match/', json=payload)
+        match_response = requests.patch(base_url + 'api/match/' + request.data['match']['id'] + '/', json=payload)
         if match_response.ok:
             for stage in request.data['match']['stages']:
                 payload = self.get_stage_upt_payload(stage)
-                stage_response = requests.put(base_url + 'api/stage/', json=payload)
+                stage_response = requests.patch(base_url + 'api/stage/' + stage['id'] + '/', json=payload)
                 if stage_response.status_code == 201:
                     return Response(serializer.data, status=400)
-            payload = {'validate': 'ok'}
-            return Response(payload)
+            return {'validate': 'ok'}
 
     def get_user_upt_payload(self, request):
         return {'id': request.data['userId'],
+                'name': request.data['userName'],
                 'matchId': request.data['match']['id'],
-                'win': 1 if request.data['match']['result'] > 0 else 0,
-                'loss': 1 if request.data['match']['result'] < 0 else 0}
+                'win': 1 if request.data['match']['result'] == 'win' else 0,
+                'loss': 1 if request.data['match']['result'] == 'loss' else 0}
 
     def get_match_upt_payload(self, request):
         return {'id': request.data['match']['id'],
-                'result': 'victory' if request.data['match']['result'] > 0 else 'loss',
+                'result': request.data['match']['result'],
                 'status': request.data['match']['status']}
 
     def get_stage_upt_payload(self, stage):
         return {'id': stage['id'],
-                'result': 'victory' if stage['result'] > 0 else 'loss',
+                'result': stage['result'],
                 'status': stage['status']}
 
 
