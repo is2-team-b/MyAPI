@@ -257,6 +257,49 @@ class LoginViewSet(viewsets.ModelViewSet):
                 'status': stage['status']}
 
 
+class ConfigViewSet(viewsets.ModelViewSet):
+    '''
+    Contains information about inputs/outputs of a single program
+    that may be used in Universe workflows.
+    '''
+    lookup_field = 'id'
+    serializer_class = ConfigSerializer
+
+    def get_queryset(self):
+        return User.objects.all()
+
+    def create(self, request, pk=None):
+        serializer = ConfigSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                config = Config.objects.get(name=request.data['id'])
+                serializer = ConfigSerializer(config)
+                return Response(serializer.data)
+            except Config.DoesNotExist:
+                serializer.save()
+                config = Config.objects.get(name=request.data['id'])
+                serializer = ConfigSerializer(config)
+                return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.data, status=400)
+
+    def partial_update(self, request, *args, **kwargs):
+        serializer = ConfigSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                config = Config.objects.get(name=request.data['id'])
+                config.numEnemies = int(request.data['numEnemies'])
+                config.difficulty = request.data['difficulty']
+                config.scenarioOrder = request.data['scenarioOrder']
+                config.save()
+                serializer = ConfigSerializer(config)
+                return Response(serializer.data)
+            except Config.DoesNotExist:
+                return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.data, status=400)
+
+
 
 
 
