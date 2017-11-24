@@ -266,7 +266,7 @@ class ConfigViewSet(viewsets.ModelViewSet):
     serializer_class = ConfigSerializer
 
     def get_queryset(self):
-        return User.objects.all()
+        return Config.objects.all()
 
     def create(self, request, pk=None):
         serializer = ConfigSerializer(data=request.data)
