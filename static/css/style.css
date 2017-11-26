@@ -1,10 +1,10 @@
 .carousel-inner img {
-  width: 100%; /* Set width to 100% */
+  width: 50%; /* Set width to 100% */
   margin: auto;
 }
 
 .carousel-inner iframe {
-  width: 100%; /* Set width to 100% */
+  width: 50%; /* Set width to 100% */
   margin: auto;
 }
 
@@ -16,4 +16,9 @@
     .carousel-caption {
         display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
     }
+}
+
+.bg-2 {
+  background-color: #474e5d; /* Dark Blue */
+  color: #ffffff;
 }
