@@ -270,7 +270,7 @@ class ConfigViewSet(viewsets.ModelViewSet):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'config.html'
 
-    def get_queryset(self):
+    def list(self, request, *args, **kwargs):
         queryset = Config.objects.all()
         return Response({'configs': queryset})
 
