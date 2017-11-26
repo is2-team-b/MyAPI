@@ -1,4 +1,5 @@
 from rest_framework_mongoengine import viewsets
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -306,8 +307,8 @@ class ConfigViewSet(viewsets.ModelViewSet):
 
 
 class ConfigView(APIView):
-    renderer_classes = [StaticHTMLRenderer]
-    template_name = 'template/config.html'
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'config.html'
 
     def get(self, request):
         return Response({'lol': 1})
