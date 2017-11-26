@@ -271,7 +271,8 @@ class ConfigViewSet(viewsets.ModelViewSet):
     template_name = 'config.html'
 
     def get_queryset(self):
-        return Config.objects.all()
+        queryset = Config.objects.all()
+        return Response({'configs': queryset})
 
     def create(self, request, pk=None):
         serializer = ConfigSerializer(data=request.data)

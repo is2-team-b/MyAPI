@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/config/views.py" line="281" />
+    <bookmark url="file://$PROJECT_DIR$/config/views.py" line="282" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bbb23d9-0701-41a7-a838-af7a9a6c0b11" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/views.py" afterPath="$PROJECT_DIR$/config/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +19,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-492">
-              <caret line="270" column="33" lean-forward="false" selection-start-line="270" selection-start-column="33" selection-end-line="270" selection-end-column="33" />
+            <state relative-caret-position="137">
+              <caret line="274" column="46" lean-forward="true" selection-start-line="274" selection-start-column="46" selection-end-line="274" selection-end-column="46" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -259,6 +258,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="19" column="50" lean-forward="true" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -415,6 +415,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="19" column="50" lean-forward="true" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -536,6 +537,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="47" column="51" lean-forward="false" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -562,8 +564,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-492">
-          <caret line="270" column="33" lean-forward="false" selection-start-line="270" selection-start-column="33" selection-end-line="270" selection-end-column="33" />
+        <state relative-caret-position="137">
+          <caret line="274" column="46" lean-forward="true" selection-start-line="274" selection-start-column="46" selection-end-line="274" selection-end-column="46" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
