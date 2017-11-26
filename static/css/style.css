@@ -1,10 +1,6 @@
-.carousel-inner {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+.carousel-inner item {
+    width: 100%; /* Set width to 100% */
+    margin: auto;
 }
 
 .carousel-caption h3 {
