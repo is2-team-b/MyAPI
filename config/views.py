@@ -267,6 +267,8 @@ class ConfigViewSet(viewsets.ModelViewSet):
     '''
     lookup_field = 'id'
     serializer_class = ConfigSerializer
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'config.html'
 
     def get_queryset(self):
         return Config.objects.all()
@@ -276,7 +278,7 @@ class ConfigViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             try:
                 if 'id' in request.data:
-                    config = Stage.objects.get(id=request.data['id'])
+                    config = Config.objects.get(id=request.data['id'])
                     serializer = ConfigSerializer(config)
                     return Response(serializer.data)
                 else:
