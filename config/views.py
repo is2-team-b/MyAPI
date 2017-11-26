@@ -267,8 +267,6 @@ class ConfigViewSet(viewsets.ModelViewSet):
     '''
     lookup_field = 'id'
     serializer_class = ConfigSerializer
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'config.html'
 
     def list(self, request, *args, **kwargs):
         queryset = Config.objects.all()
@@ -309,9 +307,9 @@ class ConfigViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=400)
 
 
-class ConfigView(APIView):
+class IndexView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'config.html'
+    template_name = 'index.html'
 
     def get(self, request):
         return Response({'lol': 1})
