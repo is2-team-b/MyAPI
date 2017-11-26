@@ -310,6 +310,6 @@ class ConfigView(APIView):
     template_name = 'template/config.html'
 
     def get(self, request):
-        return Response()
+        return Response({'lol': 1})
 
 
