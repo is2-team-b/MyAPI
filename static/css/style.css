@@ -1,9 +1,6 @@
-.carousel-inner img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) }
+.carousel-inner item {
+    margin: auto;
+    width: 50%;
 }
 .carousel-caption h3 {
     color: #fff !important;
