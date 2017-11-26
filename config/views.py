@@ -1,5 +1,7 @@
 from rest_framework_mongoengine import viewsets
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import *
 import requests
 import random
@@ -303,6 +305,11 @@ class ConfigViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=400)
 
 
+class ConfigView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'template/config.html'
 
+    def get(self, request):
+        return Response()
 
 
