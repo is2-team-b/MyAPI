@@ -36,5 +36,5 @@ urlpatterns = [
     url(r'^api/', include(router.urls, namespace='api')),
 
     # config interface
-    url(r'^config/', ConfigView, name='get')
+    url(r'^config/', ConfigView.as_view(), name='get')
 ]
