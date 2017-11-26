@@ -1,6 +1,11 @@
-.carousel-inner item {
-    width: 100%; /* Set width to 100% */
-    margin: auto;
+.carousel-inner img {
+  width: 100%; /* Set width to 100% */
+  margin: auto;
+}
+
+.carousel-inner iframe {
+  width: 100%; /* Set width to 100% */
+  margin: auto;
 }
 
 .carousel-caption h3 {
