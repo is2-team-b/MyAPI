@@ -39,3 +39,10 @@ class Login(Document):
     characterName = fields.StringField
     userId = fields.ObjectIdField
     match = fields.DictField
+
+
+class Config(Document):
+    id = fields.ObjectIdField
+    numEnemies = fields.IntField(required=True)
+    difficulty = fields.StringField(required=True)
+    scenarioOrder = fields.ListField(required=True)
