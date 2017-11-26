@@ -1,8 +1,4 @@
 .carousel-inner {
-    position: relative;
-}
-
-.carousel-inner item {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -10,9 +6,11 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
 .carousel-caption h3 {
     color: #fff !important;
 }
+
 @media (max-width: 600px) {
     .carousel-caption {
         display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
