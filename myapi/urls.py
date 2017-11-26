@@ -26,7 +26,6 @@ router.register(r'user', UserViewSet, r"user")
 router.register(r'match', MatchViewSet, r"match")
 router.register(r'stage', StageViewSet, r"stage")
 router.register(r'login', LoginViewSet, r"login")
-router.register(r'config', ConfigViewSet, r"config")
 
 urlpatterns = [
     # default django admin interface

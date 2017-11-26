@@ -25,9 +25,3 @@ class LoginSerializer(DocumentSerializer):
     class Meta:
         model = Login
         fields = '__all__'
-
-
-class ConfigSerializer(DocumentSerializer):
-    class Meta:
-        model = Config
-        fields = '__all__'
