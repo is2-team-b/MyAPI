@@ -1,12 +1,15 @@
 .carousel-inner img {
-      width: 100%; /* Set width to 100% */
-      margin: auto;
-  }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+}
 .carousel-caption h3 {
-      color: #fff !important;
+    color: #fff !important;
 }
 @media (max-width: 600px) {
     .carousel-caption {
-      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
     }
 }
