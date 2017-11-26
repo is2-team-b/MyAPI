@@ -6,19 +6,20 @@
     font-size: 11px !important;
     letter-spacing: 4px;
     opacity: 0.9;
+    border-radius: 0;
 }
+
 .navbar li a, .navbar .navbar-brand {
     color: #d5d5d5 !important;
 }
+
 .navbar-nav li a:hover {
     color: #fff !important;
 }
+
 .navbar-nav li.active a {
     color: #fff !important;
     background-color: #29292c !important;
-}
-.navbar-default .navbar-toggle {
-    border-color: transparent;
 }
 
 #myCarousel {
@@ -40,21 +41,31 @@
     }
 }
 
+.bg {
+    background-color: #ffffff;
+    padding: 50px 50px 50px 50px;
+}
+
+.bg form {
+    background-color: #F8F5F0;
+    padding: 20px 20px 20px 20px;
+}
+
 iframe {
-  margin: auto;
+    margin: auto;
 }
 
 footer {
-  background-color: #2d2d30;
-  color: #f5f5f5;
-  padding: 32px;
+    background-color: #2d2d30;
+    color: #f5f5f5;
+    padding: 32px;
 }
 
 footer a {
-  color: #f5f5f5;
+    color: #f5f5f5;
 }
 
 footer a:hover {
-  color: #777;
-  text-decoration: none;
+    color: #777;
+    text-decoration: none;
 }
