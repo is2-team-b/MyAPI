@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bbb23d9-0701-41a7-a838-af7a9a6c0b11" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/static/css/bootstrap.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
@@ -18,21 +17,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-952">
-              <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+            <state relative-caret-position="-268">
+              <caret line="77" column="40" lean-forward="false" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state relative-caret-position="320">
+              <caret line="76" column="1" lean-forward="false" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -61,8 +60,8 @@
         <option value="$PROJECT_DIR$/myapi/urls.py" />
         <option value="$PROJECT_DIR$/template/index.html" />
         <option value="$PROJECT_DIR$/myapi/settings.py" />
-        <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
       </list>
     </option>
   </component>
@@ -614,18 +613,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-952">
-          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+        <state relative-caret-position="320">
+          <caret line="76" column="1" lean-forward="false" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="-268">
+          <caret line="77" column="40" lean-forward="false" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
           <folding />
         </state>
       </provider>

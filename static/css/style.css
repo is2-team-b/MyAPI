@@ -1,12 +1,24 @@
 .navbar {
     font-family: Montserrat, sans-serif;
     margin-bottom: 0;
-    background-color: #857373;
+    background-color: #3a5fcd;
     border: 0;
     font-size: 11px !important;
     letter-spacing: 4px;
     opacity: 0.9;
 }
+
+/*.navbar {
+    margin-bottom: 0;
+    background-color: #4a708b;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}*/
 
 .navbar li a, .navbar .navbar-brand {
     color: #d5d5d5 !important;
@@ -18,15 +30,19 @@
 
 .navbar-nav li.active a {
     color: #fff !important;
-    background-color: #4f4545 !important;
+    background-color: #27408b !important;
 }
 
 .navbar-default .navbar-toggle {
     border-color: transparent;
 }
 
+#myCarousel {
+  background-color: #2c4353
+}
+
 .carousel-inner img {
-  width: 50%; /* Set width to 100% */
+  width: 100%; /* Set width to 100% */
   margin: auto;
 }
 
@@ -38,11 +54,6 @@
     .carousel-caption {
         display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
     }
-}
-
-.bg-2 {
-  background-color: #474e5d; /* Dark Blue */
-  color: #ffffff;
 }
 
 h2 {
@@ -59,4 +70,8 @@ h4 {
     color: #303030;
     font-weight: 400;
     margin-bottom: 30px;
+}
+
+.bg-grey {
+    background-color: #f6f6f6;
 }
