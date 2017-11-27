@@ -340,6 +340,7 @@ class IndexView(APIView):
             return Response(status=400)
 
     def get_payload(self, request):
+        print('firstScenario' + request.data['firstScenario'])
         return {'numEnemies': request.data['numEnemies'],
                    'difficulty': request.data['difficulty'],
                    'scenariosOrder': ['ocean_wall.png', 'river.png']
