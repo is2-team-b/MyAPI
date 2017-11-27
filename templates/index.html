@@ -66,7 +66,7 @@
                 <form id="postConfig" action="{% url 'index' %}">
                     <legend>Configuración</legend>
                     {% if config is not None %}
-                        <input type="hidden" name="id" value="{{% config.id %}}"/>
+                        <input type="hidden" name="id" value="{{ config.id }}"/>
                     {% endif %}
                     <div class="form-group row">
                         <label for="numEnemies" class="col-sm-2 col-form-label">Número de enemigos</label>
@@ -74,14 +74,14 @@
                             <select class="form-control" id="numEnemies" name="numEnemies">
                                 {% if config is not None
                                     for x in range(2, 5)
-                                        if config.numEnemies is not x%}
-                                            <option>{{% x %}}</option>
+                                        if int(config.numEnemies) != x %}
+                                            <option>{{ x }}</option>
                                         {% else %}
-                                            <option selected>{{% config.numEnemies %}}</option>
+                                            <option selected>{{ config.numEnemies }}</option>
                                         {% endif %}
                                 {% else
                                     for x in range(2, 5) %}
-                                        <option>{{% x %}}</option>
+                                        <option>{{ x }}</option>
                                     {% endfor %}
                                 {% endif %}
                             </select>
@@ -93,15 +93,15 @@
                             <select class="form-control" id="difficulty" name="difficulty">
                                 {% if config is not None
                                     for x in range(40, 100, 30)
-                                        if config.difficulty is not x %}
-                                            <option>{{% x %}}</option>
+                                        if int(config.difficulty) != x %}
+                                            <option>{{ x }}</option>
                                         {% else %}
-                                            <option selected>{{% config.difficulty %}}</option>
+                                            <option selected>{{ config.difficulty }}</option>
                                         {% endif %}
                                     {% endfor %}
                                 {% else
                                     for x in range(40, 100, 30) %}
-                                        <option>{{% x %}}</option>
+                                        <option>{{ x }}</option>
                                     {% endfor %}
                                 {% endif %}
                             </select>
