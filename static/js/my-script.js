@@ -2,15 +2,18 @@ $(document).ready(function() {
     $('#postConfig').off('submit').on('submit', function(event) {
 		event.stopPropagation();
 		var direccion = $(this).attr('action');
+		var method = $(this).attr('method');
 		var formData = $(this).serializeArray();
 		// process the form
 		$.ajax({
-			type : 'POST', // define the type of HTTP verb we want to use (POST
+			type : method, // define the type of HTTP verb we want to use (POST
 			// for our form)
 			url : direccion, // the url where we want to POST
 			data : formData, // our data object
 			// what type of data do we expect back from the server
+			console.log('procesando')
 			success : function(data) {
+				console.log('exitoso')
 				$('#divForm').html(data);
 				$('#divForm').slideDown(1000);
 			}

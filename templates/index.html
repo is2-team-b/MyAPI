@@ -63,7 +63,7 @@
             </div>
             <div class="col-sm-6" id="divForm">
                 <!-- Form (Config) -->
-                <form id="postConfig" action="{% url 'index' %}">
+                <form id="postConfig" action="{% url 'index' %}" method="post">
                     <legend>Configuración</legend>
                     {% if config is not None %}
                         <input type="hidden" name="id" value="{{ config.id }}"/>
