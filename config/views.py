@@ -331,8 +331,11 @@ class IndexView(APIView):
             config_response = requests.put(base_url + 'api/config/' + request.data['id'] + '/', json=payload)
         else:
             config_response = requests.post(base_url + 'api/config/', json=payload)
+
         if config_response.status_code is not 400:
-            return Response(self.get_response_payload(config_response))
+            response_payload = self.get_response_payload()
+            response_payload['config'] = config_response.json()[0]
+            return Response(response_payload)
         else:
             return Response(status=400)
 
