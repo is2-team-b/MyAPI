@@ -1,11 +1,9 @@
 from rest_framework_mongoengine import viewsets
 from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
 import requests
-import random
 import wsgiref.util
 
 # Create your views here.
@@ -197,6 +195,10 @@ class LoginViewSet(viewsets.ModelViewSet):
                 config_response = requests.post(base_url + 'api/config/')
                 if config_response.status_code == 201:
                     return self.get_config_attr(config_response)
+        else:
+            config_response = requests.post(base_url + 'api/config/')
+            if config_response.status_code == 201:
+                return self.get_config_attr(config_response)
 
     def get_config_attr(self, config_response):
         scenarios = config_response.json()['scenariosOrder']
