@@ -78,12 +78,13 @@
                                             <option>{{ x }}</option>
                                         {% else %}
                                             <option selected>{{ config.numEnemies }}</option>
-                                        {% endif %}
-                                {% else
+                                        {% endif
+                                    endfor
+                                else
                                     for x in range(2, 5) %}
                                         <option>{{ x }}</option>
-                                    {% endfor %}
-                                {% endif %}
+                                    {% endfor
+                                endif %}
                             </select>
                         </div>
                     </div>
@@ -97,13 +98,13 @@
                                             <option>{{ x }}</option>
                                         {% else %}
                                             <option selected>{{ config.difficulty }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% else
+                                        {% endif
+                                    endfor
+                                else
                                     for x in range(40, 100, 30) %}
                                         <option>{{ x }}</option>
-                                    {% endfor %}
-                                {% endif %}
+                                    {% endfor
+                                endif %}
                             </select>
                         </div>
                     </div>
