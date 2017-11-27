@@ -75,7 +75,7 @@
                                 {% if config is not None
                                     for x in range(2, 5)
                                         if int(config.numEnemies) != x %}
-                                            <option>{{ x }}</option>
+                                            <option>{{ config.numEnemies }}</option>
                                         {% else %}
                                             <option selected>{{ config.numEnemies }}</option>
                                         {% endif
@@ -95,7 +95,7 @@
                                 {% if config is not None
                                     for x in range(40, 100, 30)
                                         if int(config.difficulty) != x %}
-                                            <option>{{ x }}</option>
+                                            <option>{{ config.difficulty }}</option>
                                         {% else %}
                                             <option selected>{{ config.difficulty }}</option>
                                         {% endif
