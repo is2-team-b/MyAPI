@@ -314,7 +314,10 @@ class IndexView(APIView):
     def get(self, request):
         base_url = wsgiref.util.application_uri(self.request.environ)
         config_response = requests.get(base_url + 'api/config/')
-        return Response({'config': config_response.json()[0]})
+        if config_response.status_code == 200:
+            return Response({'config': config_response.json()[0]})
+        else:
+            return Response()
 
     def post(self, request, pk=None):
         base_url = wsgiref.util.application_uri(self.request.environ)
