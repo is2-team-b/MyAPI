@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from .serializers import *
 import requests
 import wsgiref.util
+from operator import attrgetter
 
 # Create your views here.
 
@@ -262,7 +263,9 @@ class LoginViewSet(viewsets.ModelViewSet):
                 stage_response = requests.patch(base_url + 'api/stage/' + stage['id'] + '/', json=payload)
                 if stage_response.status_code == 201:
                     return Response(serializer.data, status=400)
-            return {'validate': 'ok'}
+            user_response = requests.get(base_url + 'api/user/')
+            if user_response.ok:
+                return {'users': sorted(user_response.json(), key=attrgetter('maxKills'), reverse=True)[:5]}
 
     def get_user_upt_payload(self, request, max_kills):
         return {'id': request.data['userId'],
