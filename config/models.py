@@ -10,6 +10,7 @@ class User(Document):
     wins = fields.IntField(default=0)
     losses = fields.IntField(default=0)
     matchesId = fields.ListField(default=[])
+    maxKills = fields.IntField(default=0)
 
 
 class Match(Document):
@@ -21,6 +22,7 @@ class Match(Document):
     characterName = fields.StringField(required=True)
     status = fields.StringField(required=True)
     numEnemies = fields.IntField(required=True)
+    kills = fields.IntField(default=0)
 
 
 class Stage(Document):
@@ -33,6 +35,7 @@ class Stage(Document):
     difficulty = fields.IntField(required=True)
     status = fields.StringField(required=True)
     numEnemies = fields.IntField(required=True)
+    kills = fields.IntField(default=0)
 
 
 class Login(Document):

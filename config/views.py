@@ -240,10 +240,14 @@ class LoginViewSet(viewsets.ModelViewSet):
         serializer = LoginSerializer(data=request.data)
         base_url = wsgiref.util.application_uri(self.request.environ)
         if serializer.is_valid():
-            payload = self.get_user_upt_payload(request)
-            user_response = requests.patch(base_url + 'api/user/' + request.data['userName'] + '/', json=payload)
+            user_response = requests.get(base_url + 'api/user/' + request.data['userName'] + '/')
             if user_response.ok:
-                return Response(self.patch_response(request, serializer, base_url))
+                payload = self.get_user_upt_payload(request, user_response.json()['maxKills'])
+                user_response = requests.patch(base_url + 'api/user/' + request.data['userName'] + '/', json=payload)
+                if user_response.ok:
+                    return Response(self.patch_response(request, serializer, base_url))
+                else:
+                    return Response(serializer.data, status=400)
             else:
                 return Response(serializer.data, status=400)
         else:
@@ -260,17 +264,19 @@ class LoginViewSet(viewsets.ModelViewSet):
                     return Response(serializer.data, status=400)
             return {'validate': 'ok'}
 
-    def get_user_upt_payload(self, request):
+    def get_user_upt_payload(self, request, max_kills):
         return {'id': request.data['userId'],
                 'name': request.data['userName'],
                 'matchId': request.data['match']['id'],
                 'win': 1 if request.data['match']['result'] == 'win' else 0,
-                'loss': 1 if request.data['match']['result'] == 'loss' else 0}
+                'loss': 1 if request.data['match']['result'] == 'loss' else 0,
+                'maxKills': max(request.data['match']['kills'], max_kills)}
 
     def get_match_upt_payload(self, request):
         return {'id': request.data['match']['id'],
                 'result': request.data['match']['result'],
-                'status': request.data['match']['status']}
+                'status': request.data['match']['status'],
+                'kills': request.data['match']['kills']}
 
     def get_stage_upt_payload(self, stage):
         return {'id': stage['id'],
