@@ -35,7 +35,6 @@ class Stage(Document):
     difficulty = fields.IntField(required=True)
     status = fields.StringField(required=True)
     numEnemies = fields.IntField(required=True)
-    kills = fields.IntField(default=0)
 
 
 class Login(Document):
