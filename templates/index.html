@@ -74,7 +74,7 @@
                             <select class="form-control" id="numEnemies" name="numEnemies">
                                 {% if config is not None %}
                                     {% for x in numEnemiesRange %}
-                                        {% if int(config.numEnemies) != x %}
+                                        {% if config.numEnemies != x %}
                                             <option>{{ config.numEnemies }}</option>
                                         {% else %}
                                             <option selected>{{ config.numEnemies }}</option>
@@ -94,7 +94,7 @@
                             <select class="form-control" id="difficulty" name="difficulty">
                                 {% if config is not None %}
                                     {% for x in difficultyRange %}
-                                        {% if int(config.difficulty) != x %}
+                                        {% if config.difficulty != x %}
                                             <option>{{ config.difficulty }}</option>
                                         {% else %}
                                             <option selected>{{ config.difficulty }}</option>

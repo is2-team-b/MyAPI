@@ -29,7 +29,7 @@ class Stage(Document):
     result = fields.StringField(default='')
     scenario = fields.StringField(required=True)
     characterName = fields.StringField(required=True)
-    difficulty = fields.StringField(required=True)
+    difficulty = fields.IntField(required=True)
     status = fields.StringField(required=True)
 
 
@@ -44,5 +44,5 @@ class Login(Document):
 class Config(Document):
     id = fields.ObjectIdField
     numEnemies = fields.IntField(required=True)
-    difficulty = fields.StringField(required=True)
+    difficulty = fields.IntField(required=True)
     scenariosOrder = fields.ListField(required=True)
