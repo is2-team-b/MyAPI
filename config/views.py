@@ -196,7 +196,7 @@ class LoginViewSet(viewsets.ModelViewSet):
                 if config_response.status_code == 201:
                     return self.get_config_attr(config_response)
         else:
-            config_response = requests.post(base_url + 'api/config/')
+            config_response = requests.post(base_url + 'api/config/', json=self.get_config_payload())
             if config_response.status_code == 201:
                 return self.get_config_attr(config_response)
 
