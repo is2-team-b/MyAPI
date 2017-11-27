@@ -190,25 +190,25 @@ class LoginViewSet(viewsets.ModelViewSet):
         config_response = requests.get(base_url + 'api/config/')
         if config_response.status_code == 200:
             if len(config_response.json()) > 0:
-                return self.get_config_attr(config_response)
+                return self.get_config_attr(config_response.json()[0])
             else:
                 config_response = requests.post(base_url + 'api/config/', json=self.get_config_payload())
                 if config_response.status_code == 201:
-                    return self.get_config_attr(config_response)
+                    return self.get_config_attr(config_response.json())
         else:
             config_response = requests.post(base_url + 'api/config/', json=self.get_config_payload())
             if config_response.status_code == 201:
-                return self.get_config_attr(config_response)
+                return self.get_config_attr(config_response.json())
 
     def get_config_payload(self):
         return {'numEnemies': 2,
                 'difficulty': 40,
                 'scenariosOrder': ['ocean_wall.png', 'river.png']}
 
-    def get_config_attr(self, config_response):
-        scenarios = config_response.json()['scenariosOrder']
-        difficulties = [config_response.json()['difficulty'], config_response.json()['difficulty'] + 20]
-        num_enemies = config_response.json()['numEnemies']
+    def get_config_attr(self, dict):
+        scenarios = dict['scenariosOrder']
+        difficulties = [dict['difficulty'], dict['difficulty'] + 20]
+        num_enemies = dict['numEnemies']
         return [scenarios, difficulties, num_enemies]
 
     def get_stage_payload(self, user_response, scenario, request, difficulty, num_enemies):
