@@ -268,10 +268,6 @@ class ConfigViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     serializer_class = ConfigSerializer
 
-    def list(self, request, *args, **kwargs):
-        queryset = Config.objects.all()
-        return Response({'config': queryset})
-
     def create(self, request, pk=None):
         serializer = ConfigSerializer(data=request.data)
         if serializer.is_valid():
