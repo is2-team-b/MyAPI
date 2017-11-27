@@ -72,19 +72,19 @@
                         <label for="numEnemies" class="col-sm-2 col-form-label">Número de enemigos</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="numEnemies" name="numEnemies">
-                                {% if config is not None
-                                    for x in range(2, 5)
-                                        if int(config.numEnemies) != x %}
+                                {% if config is not None %}
+                                    {% for x in range(2, 5) %}
+                                        {% if int(config.numEnemies) != x %}
                                             <option>{{ config.numEnemies }}</option>
                                         {% else %}
                                             <option selected>{{ config.numEnemies }}</option>
-                                        {% endif
-                                    endfor
-                                else
-                                    for x in range(2, 5) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% for x in range(2, 5) %}
                                         <option>{{ x }}</option>
-                                    {% endfor
-                                endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </select>
                         </div>
                     </div>
@@ -92,19 +92,19 @@
                         <label for="difficulty" class="col-sm-2 col-form-label">Dificultad - Velocidad de juego</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="difficulty" name="difficulty">
-                                {% if config is not None
-                                    for x in range(40, 100, 30)
-                                        if int(config.difficulty) != x %}
+                                {% if config is not None %}
+                                    {% for x in range(40, 100, 30) %}
+                                        {% if int(config.difficulty) != x %}
                                             <option>{{ config.difficulty }}</option>
                                         {% else %}
                                             <option selected>{{ config.difficulty }}</option>
-                                        {% endif
-                                    endfor
-                                else
-                                    for x in range(40, 100, 30) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% for x in range(40, 100, 30) %}
                                         <option>{{ x }}</option>
-                                    {% endfor
-                                endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </select>
                         </div>
                     </div>
