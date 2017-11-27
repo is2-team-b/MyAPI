@@ -75,11 +75,12 @@
                                 {% if config is not None %}
                                     {% for x in numEnemiesRange %}
                                         {% if config.numEnemies != x %}
-                                            <option>{{ config.numEnemies }}</option>
+                                            <option>{{ x }}</option>
                                         {% else %}
-                                            <option selected>{{ config.numEnemies }}</option>
+                                            <option selected>{{ x }}</option>
                                         {% endif %}
                                     {% endfor %}
+                                    <option>1</option>
                                 {% else %}
                                     {% for x in numEnemiesRange %}
                                         <option>{{ x }}</option>
@@ -95,11 +96,12 @@
                                 {% if config is not None %}
                                     {% for x in difficultyRange %}
                                         {% if config.difficulty != x %}
-                                            <option>{{ config.difficulty }}</option>
+                                            <option>{{ x }}</option>
                                         {% else %}
-                                            <option selected>{{ config.difficulty }}</option>
+                                            <option selected>{{ x }}</option>
                                         {% endif %}
                                     {% endfor %}
+                                    <option>1</option>
                                 {% else %}
                                     {% for x in difficultyRange %}
                                         <option>{{ x }}</option>
