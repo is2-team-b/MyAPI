@@ -113,7 +113,7 @@
                             <label class="col-form-legend col-sm-2">Orden de escenarios</label>
                             <div class="col-sm-10">
                                 {% if config is not None %}
-                                    {% if config.scenariosOrder.0.startswith('ocean') %}
+                                    {% if config.scenariosOrder.0 is 'ocean_wall.png' %}
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="firstScenario" value="ocean" checked>
