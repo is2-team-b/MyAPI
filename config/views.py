@@ -342,7 +342,8 @@ class IndexView(APIView):
     def get_payload(self, request):
         return {'numEnemies': request.data['numEnemies'],
                    'difficulty': request.data['difficulty'],
-                   'scenariosOrder': ['ocean_wall.png', 'river.png'] if request.data['firstScenario'] is 'ocean'
+                   'scenariosOrder': ['ocean_wall.png', 'river.png']
+                   if request.data['firstScenario'] is 'ocean_wall.png'
                    else ['river.png', 'ocean_wall.png']}
 
     def get_response_payload(self):

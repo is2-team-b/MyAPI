@@ -43,6 +43,6 @@ class Login(Document):
 
 class Config(Document):
     id = fields.ObjectIdField
-    numEnemies = fields.IntField(required=True)
-    difficulty = fields.IntField(required=True)
-    scenariosOrder = fields.ListField(required=True)
+    numEnemies = fields.IntField(required=True, default=2)
+    difficulty = fields.IntField(required=True, default=40)
+    scenariosOrder = fields.ListField(required=True, default=['ocean_wall.png', 'river.png'])

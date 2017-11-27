@@ -11,9 +11,7 @@ $(document).ready(function() {
 			url : direccion, // the url where we want to POST
 			data : formData, // our data object
 			// what type of data do we expect back from the server
-			console.log('procesando')
 			success : function(data) {
-				console.log('exitoso')
 				$('#divForm').html(data);
 				$('#divForm').slideDown(1000);
 			}
