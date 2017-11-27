@@ -315,7 +315,10 @@ class IndexView(APIView):
         base_url = wsgiref.util.application_uri(self.request.environ)
         config_response = requests.get(base_url + 'api/config/')
         if config_response.status_code == 200:
-            return Response({'config': config_response.json()[0]})
+            if len(config_response.json()) > 0:
+                return Response({'config': config_response.json()[0]})
+            else:
+                return Response()
         else:
             return Response()
 
