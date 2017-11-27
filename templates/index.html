@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"/>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <script src="{% static 'js/my-script.js' %}"></script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
     <nav class="navbar navbar-default">
@@ -60,31 +61,44 @@
             <div class="col-sm-6">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/1ErwgLxBNL0" frameborder="0" allowfullscreen></iframe>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="divForm">
                 <!-- Form (Config) -->
-                <form>
+                <form id="postConfig" action="{% url 'index' %}">
                     <legend>Configuración</legend>
+                    {% if config is not None: %}
+                        <input type="hidden" name="id" value="{% config.id %}"/>
                     <div class="form-group row">
                         <label for="numEnemies" class="col-sm-2 col-form-label">Número de enemigos</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="numEnemies">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select class="form-control" id="numEnemies" name="numEnemies">
+                                {% if config is not None:
+                                    for x in range(2, 5):
+                                        if config.numEnemies is not x:%}
+                                            <option>{% x %}</option>
+                                        {% else: %}
+                                            <option selected>{% config.numEnemies %}</option>
+                                {% else:
+                                    for x in range(2, 5):%}
+                                        <option>{% x %}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="difficulty" class="col-sm-2 col-form-label">Dificultad - Velocidad de juego</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="difficulty">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select class="form-control" id="difficulty" name="difficulty">
+                                {% if config is not None:
+                                    for x in range(40, 100, 30):
+                                        if config.difficulty is not x:%}
+                                            <option>{% x %}</option>
+                                        {% else: %}
+                                            <option selected>{% config.difficulty %}</option>
+                                {% else:
+                                    for x in range(40, 100, 30):%}
+                                        <option>{% x %}</option>
+                                <option>40</option>
+                                <option>70</option>
+                                <option>100</option>
                             </select>
                         </div>
                     </div>
@@ -92,18 +106,46 @@
                         <div class="row">
                             <label class="col-form-legend col-sm-2">Orden de escenarios</label>
                             <div class="col-sm-10">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="gridRadios" id="orden1" value="option1" checked>
-                                        1. Ocean wall - 2. River
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="gridRadios" id="orden2" value="option2">
-                                        1. River - 2. Ocean wall
-                                    </label>
-                                </div>
+                                {% if config is not None:
+                                    if config.scenariosOrder[0].startswith('ocean'):%}
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="firstScenario" value="ocean" checked>
+                                            1. Ocean wall - 2. River
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="firstScenario" value="river">
+                                            1. River - 2. Ocean wall
+                                        </label>
+                                    </div>
+                                    {% else: %}
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="firstScenario" value="ocean">
+                                                1. Ocean wall - 2. River
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="firstScenario" value="river" checked>
+                                                1. River - 2. Ocean wall
+                                            </label>
+                                        </div>
+                                {% else: %}
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="firstScenario" value="ocean">
+                                            1. Ocean wall - 2. River
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="firstScenario" value="river">
+                                            1. River - 2. Ocean wall
+                                        </label>
+                                    </div>
                             </div>
                         </div>
                     </fieldset>

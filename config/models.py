@@ -45,4 +45,4 @@ class Config(Document):
     id = fields.ObjectIdField
     numEnemies = fields.IntField(required=True)
     difficulty = fields.StringField(required=True)
-    scenarioOrder = fields.ListField(required=True)
+    scenariosOrder = fields.ListField(required=True)

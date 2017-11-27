@@ -270,7 +270,7 @@ class ConfigViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         queryset = Config.objects.all()
-        return Response({'configs': queryset})
+        return Response({'config': queryset})
 
     def create(self, request, pk=None):
         serializer = ConfigSerializer(data=request.data)
@@ -295,7 +295,7 @@ class ConfigViewSet(viewsets.ModelViewSet):
                 config = Config.objects.get(id=request.data['id'])
                 config.numEnemies = request.data['numEnemies']
                 config.difficulty = request.data['difficulty']
-                config.scenarioOrder = request.data['scenarioOrder']
+                config.scenariosOrder = request.data['scenariosOrder']
                 config.save()
                 serializer = ConfigSerializer(config)
                 return Response(serializer.data)
@@ -312,6 +312,26 @@ class IndexView(APIView):
     template_name = 'index.html'
 
     def get(self, request):
-        return Response({'lol': 1})
+        base_url = wsgiref.util.application_uri(self.request.environ)
+        config_response = requests.get(base_url + 'api/config/')
+        return Response({'config': config_response.json()[0]})
 
+    def post(self, request, pk=None):
+        base_url = wsgiref.util.application_uri(self.request.environ)
+        payload = self.get_payload(request)
+        if 'id' in request.data:
+            payload['id'] = request.data['id']
+            config_response = requests.put(base_url + 'api/config/' + request.data['id'] + '/', json=payload)
+        else:
+            config_response = requests.post(base_url + 'api/config/', json=payload)
+        if config_response.status_code is not 400:
+            return Response({'config': config_response.json()[0]})
+        else:
+            return Response(status=400)
+
+    def get_payload(self, request):
+        return {'numEnemies': request.data['numEnemies'],
+                   'difficulty': request.data['difficulty'],
+                   'scenariosOrder': ['ocean_wall.png', 'river.png'] if request.data['firstScenario'] is 'ocean'
+                   else ['river.png', 'ocean_wall.png']}
 
