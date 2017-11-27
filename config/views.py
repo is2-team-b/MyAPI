@@ -313,13 +313,15 @@ class IndexView(APIView):
     def get(self, request):
         base_url = wsgiref.util.application_uri(self.request.environ)
         config_response = requests.get(base_url + 'api/config/')
+        response_payload = self.get_response_payload()
         if config_response.status_code == 200:
             if len(config_response.json()) > 0:
-                return Response(self.get_response_payload(config_response))
+                response_payload['config'] = config_response.json()[0]
+                return Response(response_payload)
             else:
-                return Response()
+                return Response(response_payload)
         else:
-            return Response()
+            return Response(response_payload)
 
     def post(self, request, pk=None):
         base_url = wsgiref.util.application_uri(self.request.environ)
@@ -340,7 +342,6 @@ class IndexView(APIView):
                    'scenariosOrder': ['ocean_wall.png', 'river.png'] if request.data['firstScenario'] is 'ocean'
                    else ['river.png', 'ocean_wall.png']}
 
-    def get_response_payload(self, config_response):
-        return {'config': config_response.json()[0],
-                'numEnemiesRange': range(2, 6),
+    def get_response_payload(self):
+        return {'numEnemiesRange': range(2, 6),
                 'difficultyRange': range(40, 101, 30)}
