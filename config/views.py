@@ -265,7 +265,7 @@ class LoginViewSet(viewsets.ModelViewSet):
                     return Response(serializer.data, status=400)
             user_response = requests.get(base_url + 'api/user/')
             if user_response.ok:
-                return {'users': sorted(user_response.json(), key=lambda user: user.maxKills, reverse=True)[:5]}
+                return {'users': sorted(user_response.json(), key=lambda user: user['maxKills'], reverse=True)[:5]}
 
     def get_user_upt_payload(self, request, max_kills):
         return {'id': request.data['userId'],
