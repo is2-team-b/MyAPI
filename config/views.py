@@ -44,6 +44,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 user.wins += int(request.data['win'])
                 user.losses += int(request.data['loss'])
                 user.matchesId.append(request.data['matchId'])
+                user.maxKills = request.data['maxKills']
                 user.save()
                 serializer = UserSerializer(user)
                 return Response(serializer.data)
