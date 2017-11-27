@@ -192,7 +192,7 @@ class LoginViewSet(viewsets.ModelViewSet):
             if len(config_response.json()) > 0:
                 return self.get_config_attr(config_response)
             else:
-                config_response = requests.post(base_url + 'api/config/', payload={})
+                config_response = requests.post(base_url + 'api/config/', json={})
                 if config_response.status_code == 201:
                     return self.get_config_attr(config_response)
         else:
