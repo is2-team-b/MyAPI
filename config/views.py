@@ -192,13 +192,18 @@ class LoginViewSet(viewsets.ModelViewSet):
             if len(config_response.json()) > 0:
                 return self.get_config_attr(config_response)
             else:
-                config_response = requests.post(base_url + 'api/config/', json={})
+                config_response = requests.post(base_url + 'api/config/', json=self.get_config_payload())
                 if config_response.status_code == 201:
                     return self.get_config_attr(config_response)
         else:
             config_response = requests.post(base_url + 'api/config/')
             if config_response.status_code == 201:
                 return self.get_config_attr(config_response)
+
+    def get_config_payload(self):
+        return {'numEnemies': 2,
+                'difficulty': 40,
+                'scenariosOrder': ['ocean_wall.png', 'river.png']}
 
     def get_config_attr(self, config_response):
         scenarios = config_response.json()['scenariosOrder']
