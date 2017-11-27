@@ -65,21 +65,25 @@
                 <!-- Form (Config) -->
                 <form id="postConfig" action="{% url 'index' %}">
                     <legend>Configuración</legend>
-                    {% if config is not None: %}
+                    {% if config is not None %}
                         <input type="hidden" name="id" value="{% config.id %}"/>
+                    {% endif %}
                     <div class="form-group row">
                         <label for="numEnemies" class="col-sm-2 col-form-label">Número de enemigos</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="numEnemies" name="numEnemies">
-                                {% if config is not None:
-                                    for x in range(2, 5):
-                                        if config.numEnemies is not x:%}
+                                {% if config is not None
+                                    for x in range(2, 5)
+                                        if config.numEnemies is not x%}
                                             <option>{% x %}</option>
-                                        {% else: %}
+                                        {% else %}
                                             <option selected>{% config.numEnemies %}</option>
-                                {% else:
-                                    for x in range(2, 5):%}
+                                        {% endif %}
+                                {% else
+                                    for x in range(2, 5) %}
                                         <option>{% x %}</option>
+                                    {% endfor %}
+                                {% endif %}
                             </select>
                         </div>
                     </div>
@@ -87,18 +91,19 @@
                         <label for="difficulty" class="col-sm-2 col-form-label">Dificultad - Velocidad de juego</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="difficulty" name="difficulty">
-                                {% if config is not None:
-                                    for x in range(40, 100, 30):
-                                        if config.difficulty is not x:%}
+                                {% if config is not None
+                                    for x in range(40, 100, 30)
+                                        if config.difficulty is not x %}
                                             <option>{% x %}</option>
-                                        {% else: %}
+                                        {% else %}
                                             <option selected>{% config.difficulty %}</option>
-                                {% else:
-                                    for x in range(40, 100, 30):%}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else
+                                    for x in range(40, 100, 30) %}
                                         <option>{% x %}</option>
-                                <option>40</option>
-                                <option>70</option>
-                                <option>100</option>
+                                    {% endfor %}
+                                {% endif %}
                             </select>
                         </div>
                     </div>
@@ -106,8 +111,8 @@
                         <div class="row">
                             <label class="col-form-legend col-sm-2">Orden de escenarios</label>
                             <div class="col-sm-10">
-                                {% if config is not None:
-                                    if config.scenariosOrder[0].startswith('ocean'):%}
+                                {% if config is not None
+                                    if config.scenariosOrder[0].startswith('ocean') %}
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="firstScenario" value="ocean" checked>
@@ -120,7 +125,7 @@
                                             1. River - 2. Ocean wall
                                         </label>
                                     </div>
-                                    {% else: %}
+                                    {% else %}
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input class="form-check-input" type="radio" name="firstScenario" value="ocean">
@@ -133,7 +138,8 @@
                                                 1. River - 2. Ocean wall
                                             </label>
                                         </div>
-                                {% else: %}
+                                    {% endif %}
+                                {% else %}
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="firstScenario" value="ocean">
@@ -146,6 +152,7 @@
                                             1. River - 2. Ocean wall
                                         </label>
                                     </div>
+                                {% endif %}
                             </div>
                         </div>
                     </fieldset>

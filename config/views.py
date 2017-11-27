@@ -267,7 +267,7 @@ class ConfigViewSet(viewsets.ModelViewSet):
     '''
     lookup_field = 'id'
     serializer_class = ConfigSerializer
-    
+
     def get_queryset(self):
         return Config.objects.all()
 
