@@ -20,6 +20,7 @@ class Match(Document):
     stagesId = fields.ListField(required=True)
     characterName = fields.StringField(required=True)
     status = fields.StringField(required=True)
+    numEnemies = fields.IntField(required=True)
 
 
 class Stage(Document):

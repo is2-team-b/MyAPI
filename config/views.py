@@ -171,14 +171,14 @@ class LoginViewSet(viewsets.ModelViewSet):
 
     def post_response(self, user_response, request, serializer, base_url):
         stage_responses = []
-        scenarios_difficulties = self.get_scenarios_difficulties()
-        for scenario, difficulty in zip(scenarios_difficulties[0], scenarios_difficulties[1]):
-            payload = self.get_stage_payload(user_response, scenario, request, difficulty)
+        config = self.get_config()
+        for scenario, difficulty in zip(config[0], config[1]):
+            payload = self.get_stage_payload(user_response, scenario, request, difficulty, config[2])
             stage_response = requests.post(base_url + 'api/stage/', json=payload)
             if stage_response.status_code is not 201:
                 return Response(serializer.data, status=400)
             stage_responses.append(stage_response)
-        payload = self.get_match_payload(user_response, stage_responses, request)
+        payload = self.get_match_payload(user_response, stage_responses, request, config[2])
         match_response = requests.post(base_url + 'api/match/', json=payload)
         if match_response.status_code == 201:
             serializer.save()
@@ -187,28 +187,39 @@ class LoginViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.data, status=400)
 
-    def get_scenarios_difficulties(self):
-        scenarios = ['ocean_wall.png', 'river.png']
-        random.shuffle(scenarios)
-        difficulty1 = random.randint(30, 59)
-        difficulty2 = random.randint(difficulty1 + 10, 80)
-        difficulties = [difficulty1, difficulty2]
-        return [scenarios, difficulties]
+    def get_config(self):
+        base_url = wsgiref.util.application_uri(self.request.environ)
+        config_response = requests.get(base_url + 'api/config/')
+        if config_response.status_code == 200:
+            if len(config_response.json()) > 0:
+                return self.get_config_attr(config_response)
+            else:
+                config_response = requests.post(base_url + 'api/config/')
+                if config_response.status_code == 201:
+                    return self.get_config_attr(config_response)
 
-    def get_stage_payload(self, user_response, scenario, request, difficulty):
+    def get_config_attr(self, config_response):
+        scenarios = config_response.json()['scenariosOrder']
+        difficulties = [config_response.json()['difficulty'], config_response.json()['difficulty'] + 20]
+        num_enemies = config_response.json()['numEnemies']
+        return [scenarios, difficulties, num_enemies]
+
+    def get_stage_payload(self, user_response, scenario, request, difficulty, num_enemies):
         return {'userName': user_response.json()['name'],
                    'userId': user_response.json()['id'],
                    'scenario': scenario,
                    'characterName': request.data['characterName'],
                    'difficulty': difficulty,
-                   'status': 'playing'}
+                   'status': 'playing',
+                   'numEnemies': num_enemies}
 
-    def get_match_payload(self, user_response, stage_responses, request):
+    def get_match_payload(self, user_response, stage_responses, request, num_enemies):
         return {'userName': user_response.json()['name'],
                            'userId': user_response.json()['id'],
                            'stagesId': list(map(lambda x: x.json()['id'], stage_responses)),
                            'characterName': request.data['characterName'],
-                           'status': 'playing'}
+                           'status': 'playing',
+                           'numEnemies': num_enemies}
 
     def get_login_payload(self, stages_payload, match_payload, login_id):
         match_payload['matchId'] = match_payload['id']
