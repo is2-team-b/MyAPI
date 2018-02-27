@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.urls import path
 from django.contrib import admin
 from rest_framework_mongoengine import routers
 from config.views import *
@@ -40,5 +39,5 @@ urlpatterns = [
     url(r'', IndexView.as_view(), name='index'),
     
     # test interface
-    path('test/', TestView.as_view(), name='test')
+    url('/test/', TestView.as_view(), name='test')
 ]
