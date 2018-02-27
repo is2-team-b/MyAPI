@@ -39,5 +39,5 @@ urlpatterns = [
     url(r'', IndexView.as_view(), name='index')
     
     # test interface
-    url(r'^test/', TestView.as_view(), name='test')
+    url(r'', TestView.as_view(), name='test')
 ]
