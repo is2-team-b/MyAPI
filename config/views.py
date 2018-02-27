@@ -382,3 +382,6 @@ class IndexView(APIView):
 class TestView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'demo.html'
+    
+    def get(self, request):
+        return Response()
