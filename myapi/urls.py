@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^api/', include(router.urls, namespace='api')),
 
     # config interface
-    url(r'', IndexView.as_view(), name='index')
+    url(r'', IndexView.as_view(), name='index'),
     
     # test interface
     url(r'', TestView.as_view(), name='test')
