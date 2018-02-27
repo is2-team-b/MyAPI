@@ -377,3 +377,8 @@ class IndexView(APIView):
     def get_response_payload(self):
         return {'numEnemiesRange': range(2, 6),
                 'difficultyRange': range(40, 101, 30)}
+
+    
+class TestView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'demo.html'
